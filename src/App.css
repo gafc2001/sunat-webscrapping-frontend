@@ -4,6 +4,9 @@
   padding: 2rem;
   text-align: center;
 }
+.busqueda{
+	margin-bottom: 7rem;
+}
 .banner-container{
 	position: relative;
 	height: 500px;
@@ -45,9 +48,65 @@
 .input-search input{
 	width: auto;
 }
-.search-fields{
-	width: 50%;
-}
 .input-field{
 	margin-bottom: .7rem;
+}
+
+.result-item{
+	border: 1px solid #f5efef;
+	padding: 8px;
+	border-radius: 8px;
+	display: flex;
+	gap: 1rem;
+}
+.result-item .icon{
+	background-color: rgba(204, 204, 204, 1);
+	height: 100%;
+	width: 50px;
+	border-radius: 8px;
+	font-size: 24px;
+	padding: 5px;
+}
+.result-item .info{
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	align-items: start;
+	color: rgb(146, 146, 146);
+}
+.result-item .button{
+	display: flex;
+	place-items: center;
+}
+
+.history-item{
+	display: flex;
+	height: 45px;
+	gap: 1rem;
+	background-color: #f7f7f7;
+	border-radius: 8px;
+}
+.history-item .icon{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(204, 204, 204, 1);
+	width: 45px;
+	font-size: 20px;
+	border-radius: 8px;
+}
+.history-item .info{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	line-height: 20px;
+	text-align: start;
+	flex: 1;
+}
+.history-item .button{
+	width: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
 }
