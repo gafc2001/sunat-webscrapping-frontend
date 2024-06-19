@@ -4,3 +4,50 @@
   padding: 2rem;
   text-align: center;
 }
+.banner-container{
+	position: relative;
+	height: 500px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+.banner-container::before{
+	content: '';	
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
+	z-index: 10;
+}
+.banner-img{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.banner-content{
+	position: absolute;
+	bottom: 0;
+	z-index: 100;
+	padding: 2rem;
+	color: white;
+}
+.input-search{
+	width: 300px;
+  	display: flex;
+	background-color: white;
+	border-radius: 8px;
+	padding: 8px;
+}
+.input-search input{
+	width: auto;
+}
+.search-fields{
+	width: 50%;
+}
+.input-field{
+	margin-bottom: .7rem;
+}
