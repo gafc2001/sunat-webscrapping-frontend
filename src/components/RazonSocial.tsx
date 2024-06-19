@@ -2,7 +2,7 @@ import { faBuilding } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Badge, Button } from "@mantine/core"
 
-interface RazonSocialModel {
+export interface RazonSocialModel {
     estado : string,
     razonSocial : string,
     ruc : string,
@@ -15,7 +15,7 @@ interface RazonSocialProps {
 export const RazonSocial = ({razonSocial} : RazonSocialProps) => {
 
     const handleDetalle = async(ruc : string) => {
-        
+
     }
 
 

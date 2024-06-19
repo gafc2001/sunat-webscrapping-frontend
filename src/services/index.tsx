@@ -1,3 +1,12 @@
 export const buscarRazonSocial = async (razonSocial : string) => {
-    await fetch(import.meta.env.VITE_API_URL + `/razon_social/${razonSocial}`);
+    const response = await fetch(import.meta.env.VITE_API_URL + `/razon_social/${razonSocial}`);
+    return response.json();
+}
+export const buscarDocumento = async(tipoDocumento : string, documento : string) => {
+    const response = await fetch(import.meta.env.VITE_API_URL + `/documento/${tipoDocumento}/${documento}`);
+    return response.json();
+}
+export const buscarRut = async (ruc : string) => {
+    const response = await fetch(import.meta.env.VITE_API_URL + `/ruc/${ruc}`);
+    return response.json();
 }
