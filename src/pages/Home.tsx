@@ -4,8 +4,15 @@ import banner from "./../assets/img/banner.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
 import { faArrowRight, faBuilding } from "@fortawesome/free-solid-svg-icons";
+import { buscarRazonSocial } from "../services";
 
 export const Home = () => {
+
+    
+    const handleBuscar = () => {
+        buscarRazonSocial("Konecta");
+    }
+
     return <Container>
         <div>
             <div className="banner-container">
