@@ -12,9 +12,26 @@ export const buscarDocumento = async(tipoDocumento : string, documento : string)
     return response.data;
 }
 export const buscarRut  = async (ruc : string) : Promise<RucResult> => {
+
+    let detalleRuc : RucResult;
+    let historialData= localStorage.getItem("historial") ?? "";
+    let historial : RucResult[] = [];
+    if(!!historialData){
+        historial = JSON.parse(historialData);
+    }
+    const result = historial.find( h => h.ruc.includes(ruc));
+    if(result !== undefined){
+        return result;
+    }
     const response = await fetch(import.meta.env.VITE_API_URL + `/ruc/${ruc}`)
     .then(resp => resp.json());
-    return response.data;
+    detalleRuc = response.data;
+    historial = [
+        ...historial,
+        detalleRuc
+    ]
+    localStorage.setItem("historial",JSON.stringify(historial));
+    return detalleRuc;
 }
 
 export const exportData = async (fileName : string,data : any[]) => {

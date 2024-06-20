@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react"
-import { useLocation, useNavigate, useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { RazonSocial, RazonSocialModel } from "../components/RazonSocial";
 import { buscarDocumento, buscarRazonSocial } from "../services";
 import { Container } from "@mantine/core";
 import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
-import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 import { ButtonDownload } from "../components/ButtonDownload";
 
 export const Consulta = () => {

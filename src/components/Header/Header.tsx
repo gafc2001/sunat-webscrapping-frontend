@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import { Text, Container, Group, Burger } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './Header.module.css';
+import { Link } from 'react-router-dom';
 
 const links = [
-  { link: '#inicio', label: 'Inicio' },
-  { link: '#consultas', label: 'Consultas' },
+  { link: '/', label: 'Inicio' },
+  // { link: '#consultas', label: 'Consultas' },
 ];
 
 export function Header() {
@@ -30,9 +31,9 @@ export function Header() {
   }, []);
 
   const items = links.map((link) => (
-    <a
+    <Link
       key={link.label}
-      href={link.link}
+      to={link.link}
       className={classes.link}
       data-active={active === link.link || undefined}
       onClick={(event) => {
@@ -41,7 +42,7 @@ export function Header() {
       }}
     >
       {link.label}
-    </a>
+    </Link>
   ));
 
   return (

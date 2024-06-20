@@ -1,9 +1,7 @@
-import { faBuilding, faRotate } from "@fortawesome/free-solid-svg-icons"
+import { faBuilding } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Badge, Button } from "@mantine/core"
-import { buscarRut } from "../services"
-import { useState } from "react"
-import { RucResult } from "../models/RucResult"
+import { useNavigate } from "react-router"
 
 export interface RazonSocialModel {
     estado : string,
@@ -17,25 +15,9 @@ interface RazonSocialProps {
 
 export const RazonSocial = ({razonSocial} : RazonSocialProps) => {
 
-    const [loading,setLoading] = useState<boolean>(false);
+    const navigate = useNavigate();
 
-    const handleDetalle = async(ruc : string) => {
-        setLoading(true);
-        let historialData = localStorage.getItem("historial");
-        if(historialData !== null){
-            let historial : RucResult[] = JSON.parse(historialData);
-            const result = historial.find( h => h.ruc.includes(ruc));
-            if(result === undefined){
-                const detalleRuc = await buscarRut(ruc);
-                historial = [
-                    ...historial,
-                    detalleRuc
-                ]
-                localStorage.setItem("historial",JSON.stringify(historial));
-            }
-        }
-        setLoading(false);
-    }
+    const handleDetalle = async(ruc : string) => navigate(`/detalle/${ruc}`)
 
 
     return <div className="result-item">
@@ -47,9 +29,8 @@ export const RazonSocial = ({razonSocial} : RazonSocialProps) => {
             <span>Estado <Badge color={razonSocial.estado === "ACTIVO"?"green":"red"}>{razonSocial.estado}</Badge></span>
         </div>
         <div className="button">
-            <Button radius="lg" variant="filled" color="rgba(204, 204, 204, 1)" onClick={() => handleDetalle(razonSocial.ruc)} disabled={loading}>
+            <Button radius="lg" variant="filled" color="rgba(204, 204, 204, 1)" onClick={() => handleDetalle(razonSocial.ruc)}>
                 Ver detalle
-                {loading && <FontAwesomeIcon style={{marginLeft : "5px"}} icon={faRotate} spin={true} />}
             </Button>
         </div>
     </div>

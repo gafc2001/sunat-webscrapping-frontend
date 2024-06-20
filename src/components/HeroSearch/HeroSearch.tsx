@@ -3,7 +3,6 @@ import classes from './HeroSearch.module.css';
 import { IconHistory } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { RucResult } from '../../models/RucResult';
-import { buscarDocumento } from '../../services';
 import { useNavigate } from 'react-router';
 
 
@@ -17,7 +16,7 @@ export function HeroSearch() {
   const [historial,setHistorial] = useState<RucResult[]>([]);
 
   const [form,setForm] = useState<FormType>({
-    tipoBusqueda : "",
+    tipoBusqueda : "ruc",
     documento : "",
   });
 
@@ -37,9 +36,15 @@ export function HeroSearch() {
     if(["dni","carnet-extranjeria","pasaporte","cedula"].includes(form.tipoBusqueda)){
       navigate(`/consulta/${form.tipoBusqueda}?val=${form.documento}`);
     }
+    if(form.tipoBusqueda === "ruc"){
+      navigate(`/detalle/${form.documento}`);
+    }
 
   }
-
+  const handleClickHistorial = (data : RucResult) => {
+    const ruc = data.ruc.split("-")[0].trim();
+    navigate(`/detalle/${ruc}`);
+  }
   useEffect(() => {
     const h = localStorage.getItem("historial");
     if(!!h){
@@ -124,6 +129,7 @@ export function HeroSearch() {
               mih={50}
               component="a"
               size="sm"
+              onClick={() => handleClickHistorial(el)}
               leftSection={<IconHistory style={{ width: '1rem', height: '1rem' }} color="#00ACEE" />}
               variant="default"
             >
