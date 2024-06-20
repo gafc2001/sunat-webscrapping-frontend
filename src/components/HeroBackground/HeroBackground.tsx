@@ -1,8 +1,29 @@
 import { Title, Text, Container, Overlay, Flex, TextInput, rem, ActionIcon } from '@mantine/core';
 import classes from './HeroBackground.module.css';
 import { IconArrowRight, IconSearch } from '@tabler/icons-react';
+import { useState } from 'react';
+import { buscarRazonSocial } from '../../services';
+import { useNavigate } from 'react-router';
 
 export function HeroBackground() {
+
+  const [val,setVal] = useState<string>("");
+
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
+    const {value} = e.target;
+    setVal(value);
+  }
+  
+  const navigate = useNavigate();
+  const handleBuscar = async() => {
+    navigate("/consulta",{
+        state : {
+          tipoBusqueda : "RAZON_SOCIAL",
+          value : val,
+        }
+      }
+    )
+  }
   return (
     <div className={classes.wrapper}>
       <Overlay color="#000" opacity={0.65} zIndex={1} />
@@ -38,8 +59,9 @@ export function HeroBackground() {
           placeholder="Ingresa el RUC, DNI, Razon Social, etc"
           rightSectionWidth={42}
           leftSection={<IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} />}
+          onChange={handleChange}
           rightSection={
-            <ActionIcon size={32} radius="xl" variant="filled">
+            <ActionIcon size={32} radius="xl" variant="filled" onClick={handleBuscar}>
               <IconArrowRight style={{ width: rem(18), height: rem(18) }} stroke={1.5} />
             </ActionIcon>
           }
