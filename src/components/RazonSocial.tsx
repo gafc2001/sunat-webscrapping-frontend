@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Badge, Button } from "@mantine/core"
 import { buscarRut } from "../services"
 import { useState } from "react"
-import { useModal } from "../context/AppModal"
-import { RucDetalle } from "./RucDetalle"
 import { RucResult } from "../models/RucResult"
 
 export interface RazonSocialModel {

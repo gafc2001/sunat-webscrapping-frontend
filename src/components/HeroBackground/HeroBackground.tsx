@@ -14,15 +14,7 @@ export function HeroBackground() {
   }
 
   const navigate = useNavigate();
-  const handleBuscar = async() => {
-    navigate("/consulta",{
-        state : {
-          tipoBusqueda : "RAZON_SOCIAL",
-          value : val,
-        }
-      }
-    )
-  }
+  const handleBuscar = async() => navigate("/consulta/razon-social?val="+val);
   return (
     <div className={classes.wrapper}>
       <Overlay color="#000" opacity={0.65} zIndex={1} />

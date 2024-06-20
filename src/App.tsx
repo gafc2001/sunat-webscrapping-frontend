@@ -26,7 +26,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout/>}>
               <Route index element={<Home/>}/>
-              <Route path="/consulta" element={<Consulta/>}/>
+              <Route path="/consulta/:tipoBusqueda" element={<Consulta/>}/>
             </Route>
           </Routes>
         </ModalProvider>

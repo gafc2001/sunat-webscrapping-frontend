@@ -1,9 +1,20 @@
 import { Button, Center, Container, Flex, Group, NativeSelect, Text, TextInput, Title } from '@mantine/core';
 import classes from './HeroSearch.module.css';
 import { IconHistory } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
+import { RucResult } from '../../models/RucResult';
 
 
 export function HeroSearch() {
+
+  const [historial,setHistorial] = useState<RucResult[]>([]);
+
+  useEffect(() => {
+    const h = localStorage.getItem("historial");
+    if(!!h){
+      setHistorial(JSON.parse(h));
+    }
+  },[])
 
   return (
     <Container>
@@ -58,18 +69,21 @@ export function HeroSearch() {
             wrap="wrap"
         >
           <Title order={3}>Historial</Title>
-          <Button
-            mih={50}
-            component="a"
-            size="sm"
-            leftSection={<IconHistory style={{ width: '1rem', height: '1rem' }} color="#00ACEE" />}
-            variant="default"
-          >
-            <Group gap="sm">
-              <Title order={5}>Konecta</Title>
-              <Text>RUC: 101010020</Text>
-            </Group>
-          </Button>
+          {historial.map( (el : RucResult,ind : number) => 
+            <Button
+              key={ind}
+              mih={50}
+              component="a"
+              size="sm"
+              leftSection={<IconHistory style={{ width: '1rem', height: '1rem' }} color="#00ACEE" />}
+              variant="default"
+            >
+                <Group gap="sm">
+                  <Title order={5}>{el.ruc}</Title>
+                  {/* <Text>RUC: 101010020</Text> */}
+                </Group>
+            </Button>
+            )}
         </Flex>
     </Flex>
     </Container>
