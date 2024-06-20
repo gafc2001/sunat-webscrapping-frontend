@@ -1,9 +1,51 @@
 import { Button, Center, Container, Flex, Group, NativeSelect, Text, TextInput, Title } from '@mantine/core';
 import classes from './HeroSearch.module.css';
 import { IconHistory } from '@tabler/icons-react';
+import { useEffect, useState } from 'react';
+import { RucResult } from '../../models/RucResult';
+import { buscarDocumento } from '../../services';
+import { useNavigate } from 'react-router';
 
+
+interface FormType {
+  tipoBusqueda : string,
+  documento : string
+}
 
 export function HeroSearch() {
+
+  const [historial,setHistorial] = useState<RucResult[]>([]);
+
+  const [form,setForm] = useState<FormType>({
+    tipoBusqueda : "",
+    documento : "",
+  });
+
+  const navigate = useNavigate();
+  
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name] : value,
+    })
+  }
+  const handleBuscar = async () => {
+    if(!form.tipoBusqueda || !form.documento){
+      return alert("Ingrese los campos para la busqueda");
+    }
+    if(["dni","carnet-extranjeria","pasaporte","cedula"].includes(form.tipoBusqueda)){
+      navigate(`/consulta/${form.tipoBusqueda}?val=${form.documento}`);
+    }
+
+  }
+
+  useEffect(() => {
+    const h = localStorage.getItem("historial");
+    if(!!h){
+      setHistorial(JSON.parse(h));
+    }
+  },[])
 
   return (
     <Container>
@@ -36,9 +78,17 @@ export function HeroSearch() {
         <NativeSelect 
             w={{ base: 200, md: 400, lg: 400 }}
             label="Seleccione el tipo de búsqueda" 
-            data={['RUC', 'DNI', 'Carnet de Extranjería', 'Pasaporte', 'Ced. Diplomática de Identidad', 'Nombre/Razon Social']} 
+            data={[
+              {label : 'RUC', value : "ruc"},
+              {label : 'DNI', value : "dni"},
+              {label : 'Carnet de Extranjería', value : "carnet"},
+              {label : 'Pasaporte', value : "pasaporte"},
+              {label : 'Ced. Diplomática de Identidad', value : "cedula"}
+            ]} 
             radius="xl"
             size="md"
+            name="tipoBusqueda"
+            onChange={handleChange}
         />
         <TextInput
             w={{ base: 200, md: 400, lg: 400 }}
@@ -46,7 +96,17 @@ export function HeroSearch() {
             size="md"
             label="Ingrese el numero del documento seleccionado"
             placeholder="N° de documento"
+            name="documento"
+            onChange={handleChange}
         />
+        <Button 
+          fullWidth
+          radius='xl'
+          size='md'
+          onClick={handleBuscar}
+        >
+          Buscar
+        </Button>
         </Flex>
         <Flex
             m={20}
@@ -58,18 +118,21 @@ export function HeroSearch() {
             wrap="wrap"
         >
           <Title order={3}>Historial</Title>
-          <Button
-            mih={50}
-            component="a"
-            size="sm"
-            leftSection={<IconHistory style={{ width: '1rem', height: '1rem' }} color="#00ACEE" />}
-            variant="default"
-          >
-            <Group gap="sm">
-              <Title order={5}>Konecta</Title>
-              <Text>RUC: 101010020</Text>
-            </Group>
-          </Button>
+          {historial.map( (el : RucResult,ind : number) => 
+            <Button
+              key={ind}
+              mih={50}
+              component="a"
+              size="sm"
+              leftSection={<IconHistory style={{ width: '1rem', height: '1rem' }} color="#00ACEE" />}
+              variant="default"
+            >
+                <Group gap="sm">
+                  <Title order={5}>{el.ruc}</Title>
+                  {/* <Text>RUC: 101010020</Text> */}
+                </Group>
+            </Button>
+            )}
         </Flex>
     </Flex>
     </Container>

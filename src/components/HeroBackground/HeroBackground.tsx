@@ -2,7 +2,6 @@ import { Title, Text, Container, Overlay, Flex, TextInput, rem, ActionIcon } fro
 import classes from './HeroBackground.module.css';
 import { IconArrowRight, IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
-import { buscarRazonSocial } from '../../services';
 import { useNavigate } from 'react-router';
 
 export function HeroBackground() {
@@ -13,17 +12,9 @@ export function HeroBackground() {
     const {value} = e.target;
     setVal(value);
   }
-  
+
   const navigate = useNavigate();
-  const handleBuscar = async() => {
-    navigate("/consulta",{
-        state : {
-          tipoBusqueda : "RAZON_SOCIAL",
-          value : val,
-        }
-      }
-    )
-  }
+  const handleBuscar = async() => navigate("/consulta/razon-social?val="+val);
   return (
     <div className={classes.wrapper}>
       <Overlay color="#000" opacity={0.65} zIndex={1} />
@@ -56,7 +47,7 @@ export function HeroBackground() {
           w={{ base: 300, md: 600, lg: 700 }}
           radius="xl"
           size="md"
-          placeholder="Ingresa el RUC, DNI, Razon Social, etc"
+          placeholder="Ingresa el Nombre o Razon Social"
           rightSectionWidth={42}
           leftSection={<IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} />}
           onChange={handleChange}
