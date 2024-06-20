@@ -1,7 +1,7 @@
 import { Button, Grid, Image, Input } from "@mantine/core";
 import banner from "./../assets/img/banner.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faRotate, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { BusquedasRecientes } from "./BusquedasRecientes";
 import { useState } from "react";
 import { buscarRazonSocial, buscarRut } from "../services";
@@ -18,6 +18,7 @@ export const Busqueda = () => {
 
     const { setAppData } = useGlobaState();
 
+    const [loading,setLoading] = useState<boolean>(false);
     const [form,setForm] = useState<BusquedaType>({
         ruc : "",
         razonSocial : "",
@@ -25,7 +26,6 @@ export const Busqueda = () => {
     });
 
     const handelChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-        // console.log(e.target.value);
         const { name, value } = e.target;
         setForm({
             ruc : "",
@@ -36,6 +36,7 @@ export const Busqueda = () => {
     }
 
     const handleBuscar = async () => {
+        setLoading(true);
         let service = undefined;
         if(!!form.razonSocial){
             service = () => buscarRazonSocial(form.razonSocial);
@@ -47,6 +48,7 @@ export const Busqueda = () => {
         
         const data = await service();
         setAppData("resultados_busqueda",data);
+        setLoading(false);
     }
 
     return (
@@ -57,7 +59,10 @@ export const Busqueda = () => {
                     <h1>Buscar compañías en el Perú</h1>
                     <div className="input-search">
                         <Input variant="unstyled" name="razonSocial" value={form.razonSocial} onChange={handelChange} placeholder="Ingrese " style={{flex : 1}} leftSection={<FontAwesomeIcon icon={faSearch} />}/>
-                        <Button radius="md" variant="filled" onClick={handleBuscar}>Buscar</Button>
+                        <Button radius="md" variant="filled" onClick={handleBuscar} disabled={loading}>
+                            Buscar
+                            {loading && <FontAwesomeIcon style={{marginLeft : "5px"}} icon={faRotate} spin={true} />}
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -76,7 +81,10 @@ export const Busqueda = () => {
                                 <Input name="documento" value={form.documento} onChange={handelChange} radius="md" placeholder="Ingrese el documento"/>
                             </div>
                             <div className="input-field">
-                                <Button radius="md" fullWidth onClick={handleBuscar}>Buscar</Button>
+                                <Button radius="md" fullWidth onClick={handleBuscar} disabled={loading}>
+                                    Buscar
+                                    {loading && <FontAwesomeIcon style={{marginLeft : "5px"}} icon={faRotate} spin={true} />}
+                                </Button>
                             </div>
                         </div>
                     </div>

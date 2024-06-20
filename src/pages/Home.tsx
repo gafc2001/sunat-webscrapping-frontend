@@ -1,15 +1,12 @@
 import { Container } from "@mantine/core"
 
 import { Busqueda } from "../components/Busqueda";
-import { GlobalContext, GlobalType, useGlobaState } from "../context/GlobalState";
+import { useGlobaState } from "../context/GlobalState";
 import { RazonSocial, RazonSocialModel } from "../components/RazonSocial";
 
 export const Home = () => {
 
     const {appData} = useGlobaState();
-
-    console.log(appData.resultados_busqueda.map)
-    console.log(!!appData.resultados_busqueda)
 
     return <Container>
         <div>

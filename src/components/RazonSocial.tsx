@@ -1,6 +1,10 @@
-import { faBuilding } from "@fortawesome/free-solid-svg-icons"
+import { faBuilding, faRotate } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Badge, Button } from "@mantine/core"
+import { buscarRut } from "../services"
+import { useState } from "react"
+import { useModal } from "../context/AppModal"
+import { RucDetalle } from "./RucDetalle"
 
 export interface RazonSocialModel {
     estado : string,
@@ -14,8 +18,18 @@ interface RazonSocialProps {
 
 export const RazonSocial = ({razonSocial} : RazonSocialProps) => {
 
+    const [loading,setLoading] = useState<boolean>(false);
+    const {modal,openModal} = useModal();
     const handleDetalle = async(ruc : string) => {
-
+        setLoading(true);
+        const detalleRuc = await buscarRut(ruc);
+        setLoading(false);
+        modal({
+            title : <h1>Consulta RUC</h1>,
+            body : <RucDetalle detalle={detalleRuc}/>,
+            size : "70%",
+        })
+        openModal();
     }
 
 
@@ -28,7 +42,10 @@ export const RazonSocial = ({razonSocial} : RazonSocialProps) => {
             <span>Estado <Badge color={razonSocial.estado === "ACTIVO"?"green":"red"}>{razonSocial.estado}</Badge></span>
         </div>
         <div className="button">
-            <Button radius="lg" variant="filled" color="rgba(204, 204, 204, 1)" onClick={() => handleDetalle(razonSocial.ruc) }>Ver detalle</Button>
+            <Button radius="lg" variant="filled" color="rgba(204, 204, 204, 1)" onClick={() => handleDetalle(razonSocial.ruc)} disabled={loading}>
+                Ver detalle
+                {loading && <FontAwesomeIcon style={{marginLeft : "5px"}} icon={faRotate} spin={true} />}
+            </Button>
         </div>
     </div>
 }

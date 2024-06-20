@@ -5,12 +5,15 @@ import { MantineProvider } from '@mantine/core';
 import './App.css'
 import { Home } from './pages';
 import { GlobalState } from './context/GlobalState';
+import { ModalProvider } from './context/AppModal';
 
 function App() {
   return (
     <MantineProvider>
       <GlobalState>
-        <Home/>
+        <ModalProvider>
+          <Home/>
+        </ModalProvider>
       </GlobalState>
     </MantineProvider>
   )
