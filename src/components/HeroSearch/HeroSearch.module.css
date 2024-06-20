@@ -1,0 +1,9 @@
+.description {
+    color: var(--mantine-color-gray-9);
+    text-align: center;
+  
+    @media (max-width: $mantine-breakpoint-xs) {
+      font-size: var(--mantine-font-size-md);
+      text-align: left;
+    }
+  }
