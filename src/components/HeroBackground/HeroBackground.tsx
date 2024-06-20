@@ -47,7 +47,7 @@ export function HeroBackground() {
           w={{ base: 300, md: 600, lg: 700 }}
           radius="xl"
           size="md"
-          placeholder="Ingresa el RUC, DNI, Razon Social, etc"
+          placeholder="Ingresa el Nombre o Razon Social"
           rightSectionWidth={42}
           leftSection={<IconSearch style={{ width: rem(18), height: rem(18) }} stroke={1.5} />}
           onChange={handleChange}

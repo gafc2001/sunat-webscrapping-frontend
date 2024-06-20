@@ -3,11 +3,42 @@ import classes from './HeroSearch.module.css';
 import { IconHistory } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { RucResult } from '../../models/RucResult';
+import { buscarDocumento } from '../../services';
+import { useNavigate } from 'react-router';
 
+
+interface FormType {
+  tipoBusqueda : string,
+  documento : string
+}
 
 export function HeroSearch() {
 
   const [historial,setHistorial] = useState<RucResult[]>([]);
+
+  const [form,setForm] = useState<FormType>({
+    tipoBusqueda : "",
+    documento : "",
+  });
+
+  const navigate = useNavigate();
+  
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name] : value,
+    })
+  }
+  const handleBuscar = async () => {
+    if(!form.tipoBusqueda || !form.documento){
+      return alert("Ingrese los campos para la busqueda");
+    }
+    if(["dni","carnet-extranjeria","pasaporte","cedula"].includes(form.tipoBusqueda)){
+      navigate(`/consulta/${form.tipoBusqueda}?val=${form.documento}`);
+    }
+
+  }
 
   useEffect(() => {
     const h = localStorage.getItem("historial");
@@ -47,9 +78,17 @@ export function HeroSearch() {
         <NativeSelect 
             w={{ base: 200, md: 400, lg: 400 }}
             label="Seleccione el tipo de búsqueda" 
-            data={['RUC', 'DNI', 'Carnet de Extranjería', 'Pasaporte', 'Ced. Diplomática de Identidad', 'Nombre/Razon Social']} 
+            data={[
+              {label : 'RUC', value : "ruc"},
+              {label : 'DNI', value : "dni"},
+              {label : 'Carnet de Extranjería', value : "carnet"},
+              {label : 'Pasaporte', value : "pasaporte"},
+              {label : 'Ced. Diplomática de Identidad', value : "cedula"}
+            ]} 
             radius="xl"
             size="md"
+            name="tipoBusqueda"
+            onChange={handleChange}
         />
         <TextInput
             w={{ base: 200, md: 400, lg: 400 }}
@@ -57,7 +96,17 @@ export function HeroSearch() {
             size="md"
             label="Ingrese el numero del documento seleccionado"
             placeholder="N° de documento"
+            name="documento"
+            onChange={handleChange}
         />
+        <Button 
+          fullWidth
+          radius='xl'
+          size='md'
+          onClick={handleBuscar}
+        >
+          Buscar
+        </Button>
         </Flex>
         <Flex
             m={20}

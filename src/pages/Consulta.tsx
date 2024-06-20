@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate, useParams } from "react-router"
 import { RazonSocial, RazonSocialModel } from "../components/RazonSocial";
-import { buscarRazonSocial } from "../services";
+import { buscarDocumento, buscarRazonSocial } from "../services";
 import { Container } from "@mantine/core";
 import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,16 +14,20 @@ export const Consulta = () => {
     const [resultados,setResultados] = useState<RazonSocialModel[]>([]);
     const [loading,setLoading] = useState<boolean>(false);
     const navigate = useNavigate();
-    const {tipoBusqueda} = useParams();
+    const {tipoBusqueda }  = useParams();
     const [params] = useSearchParams();
     const request = async () => {
         setLoading(true);
         const value = params.get("val");
         console.log(value);
-        if(!value) return navigate("/");
+        if(!value || !tipoBusqueda) return navigate("/");
 
         if(tipoBusqueda === "razon-social"){
             const response = await buscarRazonSocial(value);
+            setResultados(response);
+        }
+        if(["dni","carnet-extranjeria","pasaporte","cedula"].includes(tipoBusqueda)){
+            const response = await buscarDocumento(tipoBusqueda,value);
             setResultados(response);
         }
         setLoading(false);
