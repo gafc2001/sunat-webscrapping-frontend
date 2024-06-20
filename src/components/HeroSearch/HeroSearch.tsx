@@ -35,7 +35,7 @@ export function HeroSearch() {
         <NativeSelect 
             w={{ base: 300, md: 600, lg: 700 }}
             label="Seleccione el tipo de búsqueda" 
-            data={['RUC', 'DNI', 'Carnet de Extranjería', 'Pasaporte', 'Ced. Diplomática de Identidad']} 
+            data={['RUC', 'DNI', 'Carnet de Extranjería', 'Pasaporte', 'Ced. Diplomática de Identidad', 'Nombre/Razon Social']} 
             radius="xl"
             size="md"
         />
