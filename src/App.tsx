@@ -8,6 +8,7 @@ import { Consulta } from './pages/Consulta';
 import { Layout } from './Layout';
 import './App.css'
 import { useEffect } from 'react';
+import { Detalle } from './pages/Detalle';
 
 function App() {
   
@@ -26,7 +27,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout/>}>
               <Route index element={<Home/>}/>
-              <Route path="/consulta/:tipoBusqueda" element={<Consulta/>}/>
+              <Route path="/consulta/:tipoBusqueda" element={<Consulta/>}/>              
+              <Route path="/detalle" element={<Detalle/>}/>
             </Route>
           </Routes>
         </ModalProvider>
