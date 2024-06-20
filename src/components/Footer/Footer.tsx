@@ -41,7 +41,7 @@ export function Footer() {
         <div className={classes.logo}>
             <Text className={classes.name} size='xl' fw={700}>Agencia Gato</Text>
           <Text size="xs" c="dimmed" className={classes.description}>
-            Web Scraping - Consultas RUC SUNAT
+            Web Scrapper - Consultas RUC SUNAT
           </Text>
         </div>
         <div className={classes.groups}>{groups}</div>
