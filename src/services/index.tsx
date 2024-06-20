@@ -11,8 +11,9 @@ export const buscarDocumento = async(tipoDocumento : string, documento : string)
     return response.json();
 }
 export const buscarRut  = async (ruc : string) : Promise<RucResult> => {
-    const response = await fetch(import.meta.env.VITE_API_URL + `/ruc/${ruc}`);
-    return response.json();
+    const response = await fetch(import.meta.env.VITE_API_URL + `/ruc/${ruc}`)
+    .then(resp => resp.json());
+    return response.data;
 }
 
 export const exportData = async (fileName : string,data : any[]) => {

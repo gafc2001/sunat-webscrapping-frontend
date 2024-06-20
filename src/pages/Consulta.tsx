@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { useLocation, useNavigate, useParams } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 import { RazonSocial, RazonSocialModel } from "../components/RazonSocial";
 import { buscarRazonSocial } from "../services";
 import { Container } from "@mantine/core";
 
-export const Consulta = ({tipoBusqueda,value} : any) => {
+export const Consulta = () => {
 
     const [resultados,setResultados] = useState<RazonSocialModel[]>([]);
     const location = useLocation();
@@ -22,7 +22,7 @@ export const Consulta = ({tipoBusqueda,value} : any) => {
         request();
     },[])
     return (
-        <div>
+        <div style={{paddingTop : "2rem"}}>
             <Container>
                 <div style={{margin : "2rem 0"}}>
                     <h2>Resultados (Coincidencias {resultados.length} )</h2>

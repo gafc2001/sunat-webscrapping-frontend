@@ -2,7 +2,6 @@ import { Title, Text, Container, Overlay, Flex, TextInput, rem, ActionIcon } fro
 import classes from './HeroBackground.module.css';
 import { IconArrowRight, IconSearch } from '@tabler/icons-react';
 import { useState } from 'react';
-import { buscarRazonSocial } from '../../services';
 import { useNavigate } from 'react-router';
 
 export function HeroBackground() {
@@ -13,7 +12,7 @@ export function HeroBackground() {
     const {value} = e.target;
     setVal(value);
   }
-  
+
   const navigate = useNavigate();
   const handleBuscar = async() => {
     navigate("/consulta",{

@@ -5,6 +5,7 @@ import { buscarRut } from "../services"
 import { useState } from "react"
 import { useModal } from "../context/AppModal"
 import { RucDetalle } from "./RucDetalle"
+import { RucResult } from "../models/RucResult"
 
 export interface RazonSocialModel {
     estado : string,
@@ -19,17 +20,23 @@ interface RazonSocialProps {
 export const RazonSocial = ({razonSocial} : RazonSocialProps) => {
 
     const [loading,setLoading] = useState<boolean>(false);
-    const {modal,openModal} = useModal();
+
     const handleDetalle = async(ruc : string) => {
         setLoading(true);
-        const detalleRuc = await buscarRut(ruc);
+        let historialData = localStorage.getItem("historial");
+        if(historialData !== null){
+            let historial : RucResult[] = JSON.parse(historialData);
+            const result = historial.find( h => h.ruc.includes(ruc));
+            if(result === undefined){
+                const detalleRuc = await buscarRut(ruc);
+                historial = [
+                    ...historial,
+                    detalleRuc
+                ]
+                localStorage.setItem("historial",JSON.stringify(historial));
+            }
+        }
         setLoading(false);
-        modal({
-            title : <h1>Consulta RUC</h1>,
-            body : <RucDetalle detalle={detalleRuc}/>,
-            size : "70%",
-        })
-        openModal();
     }
 
 

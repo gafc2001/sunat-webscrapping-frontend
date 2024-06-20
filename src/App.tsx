@@ -7,8 +7,18 @@ import { Route, Routes } from 'react-router';
 import { Consulta } from './pages/Consulta';
 import { Layout } from './Layout';
 import './App.css'
+import { useEffect } from 'react';
 
 function App() {
+  
+  useEffect(() => {
+    const historialData = localStorage.getItem("historial");
+    if(historialData === undefined){
+      console.log(historialData);
+      localStorage.setItem("historial",JSON.stringify([]));
+    }
+  })
+
   return (
     <MantineProvider>
       <GlobalState>
