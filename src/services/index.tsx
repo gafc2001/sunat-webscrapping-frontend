@@ -1,8 +1,10 @@
 import { RucResult } from "../models/RucResult";
 
 export const buscarRazonSocial = async (razonSocial : string) => {
-    const response = await fetch(import.meta.env.VITE_API_URL + `/razon_social/${razonSocial}`);
-    return response.json();
+    const response = await fetch(import.meta.env.VITE_API_URL + `/razon_social/${razonSocial}`)
+    .then(resp => resp.json());
+    
+    return response.data;
 }
 export const buscarDocumento = async(tipoDocumento : string, documento : string) => {
     const response = await fetch(import.meta.env.VITE_API_URL + `/documento/${tipoDocumento}/${documento}`);

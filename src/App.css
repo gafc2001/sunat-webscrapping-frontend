@@ -1,9 +1,3 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
 .busqueda{
 	margin-bottom: 7rem;
 }
@@ -58,6 +52,7 @@
 	border-radius: 8px;
 	display: flex;
 	gap: 1rem;
+	margin-bottom: 1rem;
 }
 .result-item .icon{
 	background-color: rgba(204, 204, 204, 1);

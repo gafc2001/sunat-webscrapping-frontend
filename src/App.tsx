@@ -6,6 +6,7 @@ import { ModalProvider } from './context/AppModal';
 import { Route, Routes } from 'react-router';
 import { Consulta } from './pages/Consulta';
 import { Layout } from './Layout';
+import './App.css'
 
 function App() {
   return (
