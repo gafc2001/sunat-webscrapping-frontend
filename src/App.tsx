@@ -1,8 +1,5 @@
 import '@mantine/core/styles.css';
-
 import { MantineProvider } from '@mantine/core';
-
-import './App.css'
 import { Home } from './pages';
 import { GlobalState } from './context/GlobalState';
 
