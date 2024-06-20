@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react"
-import { useLocation, useNavigate, useParams } from "react-router"
-import { RazonSocial, RazonSocialModel } from "../components/RazonSocial";
-import { buscarDocumento, buscarRazonSocial, buscarRut } from "../services";
-import { Container, Table, Title, Text, Flex, Group } from "@mantine/core";
-import { useSearchParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRotate } from "@fortawesome/free-solid-svg-icons";
-import { height } from "@fortawesome/free-solid-svg-icons/fa0";
-import { ButtonDownload } from "../components/ButtonDownload";
+import { useParams } from "react-router"
+import { buscarRut } from "../services";
+import { Container, Table, Text, Flex } from "@mantine/core";
 import { RucResult } from "../models/RucResult";
 
 export const Detalle = () => {
