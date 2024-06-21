@@ -11,7 +11,6 @@ const links = [
 
 export function Header() {
   const [opened, { toggle }] = useDisclosure(false);
-  const [active, setActive] = useState(links[0].link);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -35,7 +34,6 @@ export function Header() {
       key={link.label}
       to={link.link}
       className={classes.link}
-      data-active={active === link.link || undefined}
     >
       {link.label}
     </Link>
